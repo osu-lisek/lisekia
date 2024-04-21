@@ -1,0 +1,897 @@
+openapi: "3.1.0"
+info:
+  license: 
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  title: Lisek API
+  version: "3"
+
+security:
+  - JWT: []
+components:
+  securitySchemes:
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+servers:
+  - url: https://lisek.world
+paths:
+  /api/v2/users/{id}:
+    get:
+      summary: Get user data
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+        - name: mode
+          in: query
+          description: Gamemode ID, relax is 4
+          required: false
+          example: 0
+          schema:
+            type: integer
+            enum: [0, 1, 2, 3, 4]
+      responses:
+        "200":
+          description: Server has processed your request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    description: "Indicates that is successful request."
+                    type: boolean
+                    example: true
+                  message:
+                    description: "If ok: false"
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      username: 
+                        type: string
+                        example: NotLisek
+                      id: 
+                        type: number
+                        example: 2
+                      flags: 
+                        type: number
+                        example: 18
+                      permissions: 
+                        type: number
+                        example: 7
+                      stats: 
+                        type: object
+                        properties: 
+                          ranked_score: 
+                            type: number
+                            example: 331394296
+                          total_score: 
+                            type: number
+                            example: 1440233765
+                          accuracy: 
+                            type: number
+                            example: 0.8804134762112633
+                          playcount: 
+                            type: number
+                            example: 5456
+                          performance: 
+                            type: number
+                            example: 2986
+                          max_combo: 
+                            type: number
+                            example: 933
+                      country: 
+                        type: string
+                        example: DE
+                      rankings: 
+                        type: object
+                        properties: 
+                          global: 
+                            type: number
+                            example: 1
+                          country: 
+                            type: number
+                            example: 13
+                      username_history: 
+                        type: array
+                        items: 
+                          type: object
+                          properties: 
+                            0: 
+                              type: string
+                              example: N
+                            1: 
+                              type: string
+                              example: o
+                            2: 
+                              type: string
+                              example: t
+                            3: 
+                              type: string
+                              example: L
+                            4: 
+                              type: string
+                              example: i
+                            5: 
+                              type: string
+                              example: s
+                            6: 
+                              type: string
+                              example: e
+                            7: 
+                              type: string
+                              example: k
+                            8: 
+                              type: string
+                              example: 1
+                        example: [
+                          NotLisek,
+                          NotLisek1
+                        ]
+                      created_at: 
+                        type: string
+                        example: 2022-12-03T20:08:58
+                      last_seen: 
+                        type: string
+                        example: 2024-02-13T18:54:54.999
+                      badges: 
+                        type: array
+                        items: 
+                          type: object
+                          properties: 
+                            id: 
+                              type: number
+                              example: 1
+                            name: 
+                              type: string
+                              example: Developer
+                            icon: 
+                              type: string
+                              example: FaMountain
+                            color: 
+                              type: string
+                              example: #2f93a7
+                        example: []
+                      is_donor: 
+                        type: boolean
+                      background_url: 
+                        type: string
+                        example: /api/v1/users/2/background
+                      leveling: 
+                        type: object
+                        properties: 
+                          level: 
+                            type: number
+                            example: 61
+                          progress: 
+                            type: number
+                            example: 91
+                      grades: 
+                        type: object
+                        properties: 
+                          xh: 
+                            type: number
+                            example: 0
+                          x: 
+                            type: number
+                            example: 0
+                          sh: 
+                            type: number
+                            example: 1
+                          s: 
+                            type: number
+                            example: 7
+                          a: 
+                            type: number
+                            example: 2
+                      userpage_content: 
+                        type: string
+                        example: Some weird stuff
+                      followers: 
+                        type: number
+                        example: 6
+                    
+  /api/v2/users/{id}/best:
+    summary: "Get user best scores"
+    get:
+      operationId: "1"
+      summary: "Get user best scores"
+      parameters: 
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+        - name: mode
+          description: Gamemode ID, relax is 4
+          required: false
+          schema: 
+            type: number
+            enum: [0, 1, 2, 3, 4]
+          in: query
+        - name: offset
+          description: Offset for pagination
+          required: false
+          schema: 
+            type: number
+          in: query
+        - name: limit
+          description: Limit for pagination
+          required: false
+          schema:
+            type: number
+          in: query
+      responses:
+        401:
+          description: "Authorization header broken or invalid"
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                  ok: 
+                    type: boolean
+                    example: false
+                  message: 
+                    type: string
+                    example: "Authorization header broken or invalid"
+        403:
+          description: "User has been disabled for some reasons"
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                  ok: 
+                    type: boolean
+                    example: false
+                  message: 
+                    type: string
+                    example: "User has been disabled for some reasons"
+        200:
+          description: Server has processed your request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: 
+                    type: boolean
+                    example: true
+                  data: 
+                      type: array
+                      items: 
+                        type: object
+                        properties: 
+                          id: 
+                            type: number
+                            example: 3935
+                          beatmap: 
+                            type: object
+                            properties: 
+                              id: 
+                                type: number
+                                example: 1410860
+                              parent_id: 
+                                type: number
+                                example: 652142
+                              artist: 
+                                type: string
+                                example: MrWeebl
+                              title: 
+                                type: string
+                                example: Narwhals
+                              creator: 
+                                type: string
+                                example: bite you death
+                              version: 
+                                type: string
+                                example: Monodon monoceros
+                              bpm: 
+                                type: number
+                                example: 151
+                              ar: 
+                                type: number
+                                example: 8.7
+                              od: 
+                                type: number
+                                example: 8.2
+                              cs: 
+                                type: number
+                                example: 4.2
+                              hp: 
+                                type: number
+                                example: 5.5
+                              status: 
+                                type: number
+                                example: 2
+                              max_combo: 
+                                type: number
+                                example: 185
+                              total_length: 
+                                type: number
+                                example: 34
+                          user_id: 
+                            type: number
+                            example: 32
+                          accuracy: 
+                            type: number
+                            example: 97.38
+                          count300: 
+                            type: number
+                            example: 122
+                          count100: 
+                            type: number
+                            example: 5
+                          count50: 
+                            type: number
+                            example: 0
+                          count_geki: 
+                            type: number
+                            example: 32
+                          count_katu: 
+                            type: number
+                            example: 3
+                          count_miss: 
+                            type: number
+                            example: 0
+                          total_score: 
+                            type: number
+                            example: 653648
+                          grade: 
+                            type: string
+                            example: S
+                          playmode: 
+                            type: number
+                            example: 0
+                          max_combo: 
+                            type: number
+                            example: 185
+                          mods: 
+                            type: number
+                            example: 64
+                          weighted: 
+                            type: number
+                            example: 100
+                          performance: 
+                            type: number
+                            example: 193.7411989309342
+                          submitted_at: 
+                            type: string
+                            example: 2022-12-30T00:59:52.533
+                          passed: 
+                            type: boolean
+              example: 
+                ok: true
+                data: [
+                  {
+                    id: 3935,
+                    beatmap: {
+                      id: 1410860,
+                      parent_id: 0,
+                      artist: MrWeebl,
+                      title: Narwhals,
+                      creator: bite you death,
+                      version: Monodon monoceros,
+                      bpm: 151,
+                      ar: 8.7,
+                      od: 8.2,
+                      cs: 4.2,
+                      hp: 5.5,
+                      status: 2,
+                      max_combo: 185,
+                      total_length: 34
+                    },
+                    user_id: 2,
+                    accuracy: 97.38,
+                    count300: 122,
+                    count100: 5,
+                    count50: 0,
+                    count_geki: 32,
+                    count_katu: 3,
+                    count_miss: 0,
+                    total_score: 653648,
+                    grade: S,
+                    playmode: 0,
+                    max_combo: 185,
+                    mods: 64,
+                    weighted: 100,
+                    performance: 193.7411989309342,
+                    submitted_at: 2022-12-30T00:59:52.533,
+                    passed: true
+                  }
+                ]
+                  
+  /api/v2/users/{id}/recent:
+    get:
+      operationId: "2"
+      summary: "Get user recent scores"
+      description: "Get user recent scores"
+      parameters: 
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+        - name: mode
+          description: Gamemode ID, relax is 4
+          required: false
+          schema: 
+            type: number
+            enum: [0, 1, 2, 3, 4]
+          in: query
+        - name: offset
+          description: Offset for pagination
+          required: false
+          schema: 
+            type: number
+          in: query
+        - name: limit
+          description: Limit for pagination
+          required: false
+          schema:
+            type: number
+          in: query
+      responses:
+        401:
+          description: "Authorization header broken or invalid"
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                  ok: 
+                    type: boolean
+                    example: false
+                  message: 
+                    type: string
+                    example: "Authorization header broken or invalid"
+        403:
+          description: "User has been disabled for some reasons"
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                  ok: 
+                    type: boolean
+                    example: false
+                  message: 
+                    type: string
+                    example: "User has been disabled for some reasons"
+        200:
+          description: Server has processed your request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: 
+                    type: boolean
+                  data: 
+                      type: array
+                      items: 
+                        type: object
+                        properties: 
+                          id: 
+                            type: number
+                            example: 3935
+                          beatmap: 
+                            type: object
+                            properties: 
+                              id: 
+                                type: number
+                                example: 1410860
+                              parent_id: 
+                                type: number
+                                example: 652142
+                              artist: 
+                                type: string
+                                example: MrWeebl
+                              title: 
+                                type: string
+                                example: Narwhals
+                              creator: 
+                                type: string
+                                example: bite you death
+                              version: 
+                                type: string
+                                example: Monodon monoceros
+                              bpm: 
+                                type: number
+                                example: 151
+                              ar: 
+                                type: number
+                                example: 8.7
+                              od: 
+                                type: number
+                                example: 8.2
+                              cs: 
+                                type: number
+                                example: 4.2
+                              hp: 
+                                type: number
+                                example: 5.5
+                              status: 
+                                type: number
+                                example: 2
+                              max_combo: 
+                                type: number
+                                example: 185
+                              total_length: 
+                                type: number
+                                example: 34
+                          user_id: 
+                            type: number
+                            example: 32
+                          accuracy: 
+                            type: number
+                            example: 97.38
+                          count300: 
+                            type: number
+                            example: 122
+                          count100: 
+                            type: number
+                            example: 5
+                          count50: 
+                            type: number
+                            example: 0
+                          count_geki: 
+                            type: number
+                            example: 32
+                          count_katu: 
+                            type: number
+                            example: 3
+                          count_miss: 
+                            type: number
+                            example: 0
+                          total_score: 
+                            type: number
+                            example: 653648
+                          grade: 
+                            type: string
+                            example: S
+                          playmode: 
+                            type: number
+                            example: 0
+                          max_combo: 
+                            type: number
+                            example: 185
+                          mods: 
+                            type: number
+                            example: 64
+                          weighted: 
+                            type: number
+                            example: 100
+                          performance: 
+                            type: number
+                            example: 193.7411989309342
+                          submitted_at: 
+                            type: string
+                            example: 2022-12-30T00:59:52.533
+                          passed: 
+                            type: boolean
+              example: 
+                ok: true
+                data: [
+                  {
+                    id: 3935,
+                    beatmap: {
+                      id: 1410860,
+                      parent_id: 0,
+                      artist: MrWeebl,
+                      title: Narwhals,
+                      creator: bite you death,
+                      version: Monodon monoceros,
+                      bpm: 151,
+                      ar: 8.7,
+                      od: 8.2,
+                      cs: 4.2,
+                      hp: 5.5,
+                      status: 2,
+                      max_combo: 185,
+                      total_length: 34
+                    },
+                    user_id: 2,
+                    accuracy: 97.38,
+                    count300: 122,
+                    count100: 5,
+                    count50: 0,
+                    count_geki: 32,
+                    count_katu: 3,
+                    count_miss: 0,
+                    total_score: 653648,
+                    grade: S,
+                    playmode: 0,
+                    max_combo: 185,
+                    mods: 64,
+                    weighted: 100,
+                    performance: 193.7411989309342,
+                    submitted_at: 2022-12-30T00:59:52.533,
+                    passed: true
+                  }
+                ]
+  /api/v2/users/{id}/graph:
+    get:
+      operationId: "3"
+      summary: "Get user graph data"
+      description: "Get user graph data (the latest value per month)"
+      parameters: 
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+        - name: mode
+          description: Gamemode ID, relax is 4
+          required: false
+          in: query
+          schema: 
+            type: number
+            enum: [0,1,2,3,4]
+      responses:
+        401:
+          description: "Authorization header broken or invalid"
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                  ok: 
+                    type: boolean
+                    example: false
+                  message: 
+                    type: string
+                    example: "Authorization header broken or invalid"
+        403:
+          description: "User has been disabled for some reasons"
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                  ok: 
+                    type: boolean
+                    example: false
+                  message: 
+                    type: string
+                    example: "User has been disabled for some reasons"
+        200:
+          description: Server has processed your request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: 
+                    type: boolean
+                  data: 
+                    type: array
+                    items: 
+                      type: object
+                      properties: 
+                        id: 
+                          type: integer
+                          format: int32
+                          example: 1486972
+                        date: 
+                          type: string
+                          example: "2024-01-21T23:36:16.037"
+                        rank: 
+                          type: integer
+                          format: int32
+                          example: 14
+  /api/v2/beatmaps/{id}/leaderboard:
+    get:
+      operationId: "4"
+      summary: "Get user scores on beatmap"
+      description: "Get user scores on beatmap"
+      parameters: 
+        - name: id
+          in: path
+          description: Beatmap id
+          required: true
+          schema:
+            type: integer
+        - name: mode
+          description: Gamemode ID, relax is 4
+          required: false
+          schema: 
+            type: number
+            enum: [0, 1, 2, 3, 4]
+          in: query
+        - name: user
+          description: User id
+          required: false
+          schema: 
+            type: number
+          in: query
+      responses:
+        401:
+          description: "Authorization header broken or invalid"
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                  ok: 
+                    type: boolean
+                    example: false
+                  message: 
+                    type: string
+                    example: "Authorization header broken or invalid"
+        403:
+          description: "User has been disabled for some reasons"
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                  ok: 
+                    type: boolean
+                    example: false
+                  message: 
+                    type: string
+                    example: "User has been disabled for some reasons"
+        200:
+          description: Server has processed your request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: 
+                    type: boolean
+                  data: 
+                      type: array
+                      items: 
+                        type: object
+                        properties: 
+                          id: 
+                            type: number
+                            example: 3935
+                          beatmap: 
+                            type: object
+                            properties: 
+                              id: 
+                                type: number
+                                example: 1410860
+                              parent_id: 
+                                type: number
+                                example: 652142
+                              artist: 
+                                type: string
+                                example: MrWeebl
+                              title: 
+                                type: string
+                                example: Narwhals
+                              creator: 
+                                type: string
+                                example: bite you death
+                              version: 
+                                type: string
+                                example: Monodon monoceros
+                              bpm: 
+                                type: number
+                                example: 151
+                              ar: 
+                                type: number
+                                example: 8.7
+                              od: 
+                                type: number
+                                example: 8.2
+                              cs: 
+                                type: number
+                                example: 4.2
+                              hp: 
+                                type: number
+                                example: 5.5
+                              status: 
+                                type: number
+                                example: 2
+                              max_combo: 
+                                type: number
+                                example: 185
+                              total_length: 
+                                type: number
+                                example: 34
+                          user_id: 
+                            type: number
+                            example: 32
+                          accuracy: 
+                            type: number
+                            example: 97.38
+                          count300: 
+                            type: number
+                            example: 122
+                          count100: 
+                            type: number
+                            example: 5
+                          count50: 
+                            type: number
+                            example: 0
+                          count_geki: 
+                            type: number
+                            example: 32
+                          count_katu: 
+                            type: number
+                            example: 3
+                          count_miss: 
+                            type: number
+                            example: 0
+                          total_score: 
+                            type: number
+                            example: 653648
+                          grade: 
+                            type: string
+                            example: S
+                          playmode: 
+                            type: number
+                            example: 0
+                          max_combo: 
+                            type: number
+                            example: 185
+                          mods: 
+                            type: number
+                            example: 64
+                          weighted: 
+                            type: number
+                            example: 100
+                          performance: 
+                            type: number
+                            example: 193.7411989309342
+                          submitted_at: 
+                            type: string
+                            example: 2022-12-30T00:59:52.533
+                          passed: 
+                            type: boolean
+              example: 
+                ok: true
+                data: [
+                  {
+                    id: 3935,
+                    beatmap: {
+                      id: 1410860,
+                      parent_id: 0,
+                      artist: MrWeebl,
+                      title: Narwhals,
+                      creator: bite you death,
+                      version: Monodon monoceros,
+                      bpm: 151,
+                      ar: 8.7,
+                      od: 8.2,
+                      cs: 4.2,
+                      hp: 5.5,
+                      status: 2,
+                      max_combo: 185,
+                      total_length: 34
+                    },
+                    user_id: 2,
+                    accuracy: 97.38,
+                    count300: 122,
+                    count100: 5,
+                    count50: 0,
+                    count_geki: 32,
+                    count_katu: 3,
+                    count_miss: 0,
+                    total_score: 653648,
+                    grade: S,
+                    playmode: 0,
+                    max_combo: 185,
+                    mods: 64,
+                    weighted: 100,
+                    performance: 193.7411989309342,
+                    submitted_at: 2022-12-30T00:59:52.533,
+                    passed: true
+                  }
+                ]
+                

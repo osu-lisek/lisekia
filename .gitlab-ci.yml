@@ -1,0 +1,72 @@
+# default:
+#   image: node:18.17.0
+
+# deploy_preview:
+#   stage: deploy
+#   except:
+#     - main
+#   script:
+#     - npm install --global vercel
+#     - vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
+#     - vercel build --token=$VERCEL_TOKEN
+#     - vercel deploy --prebuilt  --token=$VERCEL_TOKEN
+
+# deploy_production:
+#   stage: deploy
+#   only:
+#     - main
+#   script:
+#     - npm install --global vercel
+#     - vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+#     - vercel build --prod --token=$VERCEL_TOKEN
+#     - vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+
+stages: # List of stages for jobs, and their order of execution
+  - build
+  - deploy
+
+docker-build:
+  tags:
+    - linux
+    - shared
+  # Use the official docker image.
+  image: docker:cli
+  stage: build
+  services:
+    - docker:dind
+  variables:
+    DOCKER_IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  # All branches are tagged with $DOCKER_IMAGE_NAME (defaults to commit ref slug)
+  # Default branch is also tagged with `latest`
+  script:
+    - docker build --pull -t "$DOCKER_IMAGE_NAME" .
+    - docker push "$DOCKER_IMAGE_NAME"
+    - |
+      if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
+        docker tag "$DOCKER_IMAGE_NAME" "$CI_REGISTRY_IMAGE:latest"
+        docker push "$CI_REGISTRY_IMAGE:latest"
+      fi
+  # Run this job in a branch where a Dockerfile exists
+  rules:
+    - if: $CI_COMMIT_BRANCH
+      exists:
+        - Dockerfile
+
+docker-deploy:
+  image: alpine:latest
+  stage: deploy
+  script:
+    - apk update
+    - apk add openssh libcrypto3
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - touch ~/.ssh/config
+    - touch ~/.ssh/known_hosts
+    - chmod -R 400 ~/.ssh
+    - ssh-keyscan $HOST >> ~/.ssh/known_hosts
+    - '[[ -f /.dockerinit ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ssh $USER@$HOST "cd /root/lisekia && docker compose pull && docker compose up -d"
+#

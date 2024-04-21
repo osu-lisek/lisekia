@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  web:
+    image: registry.lisek.cc/dhcpcd/lisekia:latest
+    healthcheck:
+      test: ["CMD", "curl", "--silent", "--fail", "localhost:3000"]
+      interval: 1m
+      timeout: 30s
+      retries: 5
+      start_period: 1s
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
