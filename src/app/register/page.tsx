@@ -104,7 +104,7 @@ export default async function Page() {
         console.log({hashedPassword, md5: createHash("md5").update(body.password).digest("hex")});
 
         let createdUser = await pool.query(`INSERT INTO "User"("username", "usernameSafe", "password", "email", "flags", "permissions", "createdAt") VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "id"`, [
-            body.username, body.username.replaceAll(" ", "_"), hashedPassword, body.email, 32, 8, new Date()]).then(r => r.rows[0]) as { id: number };
+            body.username, body.username.replaceAll(" ", "_").toLowerCase(), hashedPassword, body.email, 32, 8, new Date()]).then(r => r.rows[0]) as { id: number };
 
         console.log(createdUser);
         if (!createdUser.id) return {
@@ -175,7 +175,7 @@ export default async function Page() {
         cookie.set("auth.expires_in", (Date.now() / 1000) + expires_in, options);
 
         let origin = cookie.get("auth.origin")?.value ?? "/";
-        return redirect(origin);
+        return redirect("/");
 
     }
 
