@@ -11,6 +11,7 @@ import { redirect } from "next/navigation";
 import { cookies, headers } from "next/headers";
 import { destroySession, useServerSession } from "@/hooks/useSession";
 import { FormButton } from "./ui/FormButton";
+import { fetchOne } from "@/utils/api";
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -85,7 +86,7 @@ export default async function Navigation() {
             {user && <div className="flex flex-row gap-2">
                 <div className="group flex justify-stretch">
                     <div className="group-hover:bg-white/20 px-4 duration-[400ms] sm:flex hidden group-hover/navbar:flex flex-row gap-1 items-center cursor-pointer">
-                        <PawPrintIcon /> { user.coins }
+                        <PawPrintIcon /> { await fetchOne<{ coins: number }>("SELECT coins FROM \"User\" WHERE id = $1", [user.id]).then(r => r?.coins)}
                     </div>
                 </div>
                 <div className="group sm:relative">
