@@ -42,7 +42,7 @@ const FilterItem = ({ color, count, name, active }: { count: number, color: keyo
 const UserCard = ({ user, filter }: { user: FriendsEntry, filter: string }) => {
     return (<div className="rounded-xl w-full sm:w-[280px] bg-background-950/50 duration-300">
         <div className="h-12 w-full">
-            <Image src={user.banner ? `https://lisek.world${user.banner}` : "https://lisek.world/api/v1/users/1/background"} width={1000} height={200} alt="User background" className="w-full h-full object-cover rounded-t-xl brightness-50"/>
+            <Image src={user.banner ? `${user.banner}` : "https://assets.lisek.world/banners/0"} width={1000} height={200} alt="User background" className="w-full h-full object-cover rounded-t-xl brightness-50"/>
         </div>
         <div className="px-4 flex flex-row gap-4">
             <div className="relative">
