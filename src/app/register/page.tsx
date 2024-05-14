@@ -183,7 +183,7 @@ export default async function Page() {
     return (<div className="w-full min-h-screen flex justify-center items-center -mt-[10%] animate-fade-up animate-once animate-duration-[300ms] animate-ease-linear">
         <div className="bg-background-900/20 w-full sm:w-[30%] min-h-10 flex flex-col gap-5 justify-center items-center rounded-xl">
             <div className="text-3xl bg-background-950/50 w-full min-h-10 py-10 flex justify-center">
-                Login
+                Registration
             </div>
             <RegisterForm action={authorize} />
         </div>
