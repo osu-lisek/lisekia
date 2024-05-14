@@ -20,6 +20,11 @@ export function Score({ score }: ScoreProps) {
     let modIconNames = mods.map((mod) => `mod_${modFullNames[mod] ?? "auto"}@2x.png`);
 
     return (<div className=" relative w-full bg-background-950/60 p-2 rounded-xl shadow-md flex flex-wrap sm:flex-nowrap sm:justify-between">
+        <div className={`absolute w-[320px] h-full top-0 left-0 rounded-l-xl z-[-1] overflow-hidden`} style={{ background: `url('/_next/image?url=${decodeURIComponent(`https://assets.ppy.sh/beatmaps/${score.beatmap.parent_id}/covers/cover.jpg`)}&w=1&q=75&h=1')`}}>   
+            <div className="w-full h-full bg-gradient-to-r from-transparent to-background-950">
+
+            </div>
+        </div>
         <div className="flex w-full items-center">
             <ScoreRank rank={score.grade} size={86} />
             <div>
