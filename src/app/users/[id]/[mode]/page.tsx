@@ -48,6 +48,40 @@ export type GraphResponse = {
     data: Array<GraphData>
 }
 
+export interface StatusRoot {
+    ok: boolean
+    data: StatusData
+  }
+  
+  export interface StatusData {
+    username: string
+    status: Status
+  }
+  
+  export interface Status {
+    status: string
+    beatmap: Beatmap
+  }
+  
+  export interface Beatmap {
+    id: number
+    parent_id: number
+    artist: string
+    title: string
+    creator: string
+    version: string
+    bpm: number
+    ar: number
+    od: number
+    cs: number
+    hp: number
+    status: number
+    max_combo: number
+    total_length: number
+  }
+
+  
+
 
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -123,7 +157,11 @@ export default async function profile({ params }: Props) {
 
     let bbcodeParser = new BBCodeParser();
 
-    if (data.permissions & 8) data.badges.push({ id: 0, color: "#7c0a02", name: "Restricted", icon: "" });
+    if (data.permissions & 8 && !(data.flags & 32)) data.badges.push({ id: 0, color: "#7c0a02", name: "Restricted", icon: "" });
+
+    let banchoStatus = await fetch(`https://lisek.world/api/v2/bancho/user/${user?.id}`).then(res => res.json()) as StatusRoot;
+
+
     return (<div className="min-h-screen w-full sm:w-[80%] my-4 animate-fade-up animate-duration-300 animate-ease-out">
         <div className="min-h-[10rem] sm:h-[18rem] bg-primary-800 w-full sm:rounded-t-xl flex flex-col justify-center items-center">
             {data.background_url && <Image src={`${data.background_url}`} placeholder="blur" blurDataURL={`/_next/image?url=${encodeURIComponent(data.background_url)}&w=32&q=1`} alt="background" width={1200} height={600} className="h-full object-cover w-full sm:rounded-t-xl brightness-75" />}
@@ -314,8 +352,11 @@ export default async function profile({ params }: Props) {
                 </div>
             </div>
             <div className="bg-background-800/50 w-full min-h-2 py-1 px-2 text-base flex flex-row gap-2 select-none rounded-b-sm">
+                {banchoStatus.ok && <strong>
+                    User is currently online
+                </strong>}
                 {/* To prevent some weird stuff (I guess) */}
-                {Date.now() - new Date(data.last_seen).getTime() < LAST_SEEN_PRIVACY_TIMEOUT && <div>
+                {Date.now() - new Date(data.last_seen).getTime() < LAST_SEEN_PRIVACY_TIMEOUT && !banchoStatus.ok && <div>
                     Last seen <strong>{duration(new Date(data.last_seen).getTime() - Date.now(), "ms").humanize(true)}</strong>
                 </div>}
                 <div>
