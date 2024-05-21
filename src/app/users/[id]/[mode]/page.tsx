@@ -149,18 +149,18 @@ export default async function profile({ params }: Props) {
         message = response.message;
     }
 
+
     data = data!;
     
     if (params.id != data.id.toString()) return redirect(`/users/${data.id}`);
 
-    const graph = await fetch(`https://lisek.world/api/v2/users/${data.id}/graph?mode=${convertModeToInt(mode)}`, { headers: { ...headers } }).then(res => res.json()) as GraphResponse;
+    const graph = await fetch(`https://lisek.world/api/v2/users/${data.id}/graph?mode=${convertModeToInt(mode)}`, { headers: user ? headers : {} }).then(res => res.json()) as GraphResponse;
 
     let bbcodeParser = new BBCodeParser();
 
     if (data.permissions & 8 && !(data.flags & 32)) data.badges.push({ id: 0, color: "#7c0a02", name: "Restricted", icon: "" });
 
-    let banchoStatus = await fetch(`https://lisek.world/api/v2/bancho/user/${user?.id}`).then(res => res.json()) as StatusRoot;
-
+    let banchoStatus = await fetch(`https://lisek.world/api/v2/bancho/user/${data?.id}`).then(res => res.json()) as StatusRoot;
 
     return (<div className="min-h-screen w-full sm:w-[80%] my-4 animate-fade-up animate-duration-300 animate-ease-out">
         <div className="min-h-[10rem] sm:h-[18rem] bg-primary-800 w-full sm:rounded-t-xl flex flex-col justify-center items-center">
@@ -171,7 +171,7 @@ export default async function profile({ params }: Props) {
             <div className="flex flex-col sm:flex-row sm:justify-between w-full sm:ml-44 justify-center items-center sm:py-0 py-4">
                 <div className="flex flex-col gap-1">
                     <div className="text-3xl flex flex-col sm:flex-row items-center gap-2 text-background-200 justify-center">
-                        <span className="flex flex-row gap-1 items-center">{data.username} {!!data.username_history.length && <div className="group relative">
+                        <span className="flex flex-row gap-1 items-center">{data.username} {!!data.username_history?.length && <div className="group relative">
                             <div className="group">
                                 <BookUserIcon size={24} />
                             </div>
