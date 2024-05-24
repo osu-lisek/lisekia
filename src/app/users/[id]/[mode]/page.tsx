@@ -87,7 +87,6 @@ export interface StatusRoot {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     let { ok, data } = await fetch(`https://lisek.world/api/v2/users/${params.id}?mode=${convertModeToInt(params.mode)}`).then(res => res.json()) as UserResponse;
 
-
     if (!ok) return {};
     //If check above is passed, then we do not need to validate data
     data = data!;
@@ -150,6 +149,22 @@ export default async function profile({ params }: Props) {
     }
 
 
+    if (!ok) return <div className="min-h-screen w-full sm:w-[80%] my-4 animate-fade-up animate-duration-300 animate-ease-in">
+        <div className="w-full h-full bg-background-800/25 rounded-md">
+            <div className="text-3xl w-full h-auto bg-background-700/10 p-2" title={message}>
+                Profile not found.
+            </div>
+            <div className="px-4 py-2">
+                Seems like you are not allowed to view this profile, here some reasons why it may be caused.
+                <ul className="px-6 m-auto list-disc">
+                    <li>This user does not exists.</li>
+                    <li>User's profile has been disabled for security or abuse reason.</li>
+                    <li>Something caused error while fetching user.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     data = data!;
     
     if (params.id != data.id.toString()) return redirect(`/users/${data.id}`);
@@ -159,6 +174,7 @@ export default async function profile({ params }: Props) {
     let bbcodeParser = new BBCodeParser();
 
     if (data.permissions & 8 && !(data.flags & 32)) data.badges.push({ id: 0, color: "#7c0a02", name: "Restricted", icon: "" });
+    if (data.permissions & 8 && data.flags & 3) data.badges.push({ id: 0, color: "#edea3e", name: "Pending verification", icon: "" });
 
     let banchoStatus = await fetch(`https://lisek.world/api/v2/bancho/user/${data?.id}`).then(res => res.json()) as StatusRoot;
 
