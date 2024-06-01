@@ -174,7 +174,7 @@ export default async function profile({ params }: Props) {
     let bbcodeParser = new BBCodeParser();
 
     if (data.permissions & 8 && !(data.flags & 32)) data.badges.push({ id: 0, color: "#7c0a02", name: "Restricted", icon: "" });
-    if (data.permissions & 8 && data.flags & 3) data.badges.push({ id: 0, color: "#edea3e", name: "Pending verification", icon: "" });
+    if (data.permissions & 8 && data.flags & 32) data.badges.push({ id: 0, color: "#edea3e", name: "Pending verification", icon: "" });
 
     let banchoStatus = await fetch(`https://lisek.world/api/v2/bancho/user/${data?.id}`).then(res => res.json()) as StatusRoot;
 
