@@ -91,7 +91,7 @@ export default async function Navigation() {
                 </div>
                 <div className="group sm:relative">
                     <div className="group-hover:bg-white/20 px-4 duration-[400ms]">
-                        <Image src={`https://a.osu.lisek.cc/${user.id}`} alt="avatar" width={56} height={56} className={`rounded-full border-mine-shaft-800 border-[4px] drop-shadow-2xl cursor-pointer`} />
+                        <Image src={`https://a.lisek.cc/${user.id}`} alt="avatar" width={56} height={56} className={`rounded-full border-mine-shaft-800 border-[4px] drop-shadow-2xl cursor-pointer`} />
                     </div>
                     <div className="z-[9] sm:z-10 left-0 w-full absolute bg-mine-shaft-950 sm:min-w-[275%] sm:-translate-x-[63%] opacity-0 min-h-[100px] pointer-events-none duration-[400ms] -translate-y-[125%] sm:-translate-y-8 ease-in-out group-hover:opacity-100 sm:group-hover:translate-y-0 group-hover:pointer-events-auto flex flex-col gap-2 items-center py-2 px-2 rounded-b-md">
                         <Link href={`/users/${user.id}/standard`} className="flex flex-row justify-center sm:justify-between bg-mine-shaft-900 w-full items-stretch rounded-md">
@@ -104,7 +104,7 @@ export default async function Navigation() {
                                 </div>
                             </div>
                             <div className="bg-mine-shaft-700 items-center rounded-r-md px-1 hidden sm:flex  w-1/4">
-                                <Image src={`https://a.osu.lisek.cc/${user.id}`} alt="avatar" width={48} height={48} className={`rounded-full border-mine-shaft-800 border-[2px] drop-shadow-2xl cursor-pointer`} />
+                                <Image src={`https://a.lisek.cc/${user.id}`} alt="avatar" width={48} height={48} className={`rounded-full border-mine-shaft-800 border-[2px] drop-shadow-2xl cursor-pointer`} />
                             </div>
                         </Link>
 

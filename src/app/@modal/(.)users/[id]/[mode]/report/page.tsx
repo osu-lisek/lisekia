@@ -99,11 +99,11 @@ export default async function Page({ params }: IModalProps) {
                         title: "New report!",
                         author: {
                             name: authorized_user.username,
-                            icon_url: `https://a.osu.lisek.cc/${authorized_user.id}`,
+                            icon_url: `https://a.lisek.cc/${authorized_user.id}`,
                             url: `https://next.lisek.cc/users/${authorized_user.id}`
                         },
                         thumbnail: {
-                            url: `https://a.osu.lisek.cc/${data.id}`
+                            url: `https://a.lisek.cc/${data.id}`
                         },
                         color: 0xff0000,
                         timestamp: new Date().toISOString(),

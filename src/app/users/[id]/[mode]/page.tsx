@@ -183,7 +183,7 @@ export default async function profile({ params }: Props) {
             {/* {data.background_url && <Image src={`${data.background_url}`} placeholder="blur" blurDataURL={`/_next/image?url=${encodeURIComponent(data.background_url)}&w=32&q=1`} width={1200} height={600} className="h-full object-cover w-full sm:rounded-t-xl brightness-75" />} */}
         </div>
         <div className="bg-background-800/25 sm:px-4 flex flex-col sm:flex-row py-5 sm:gap-3 select-none shadow-md justify-center items-center sm:items-start sm:justify-start">
-            <Image src={`https://a.osu.lisek.cc/${data.id}`} alt="Profile picture" width={162} height={162} placeholder="blur" blurDataURL={`/_next/image?url=https://a.osu.lisek.cc/${data.id}&w=32&q=1`} className="sm:-translate-y-20 sm:absolute rounded-xl border-background-950 border-4 bg-background-950" />
+            <Image src={`https://a.lisek.cc/${data.id}`} alt="Profile picture" width={162} height={162} placeholder="blur" blurDataURL={`/_next/image?url=https://a.lisek.cc/${data.id}&w=32&q=1`} className="sm:-translate-y-20 sm:absolute rounded-xl border-background-950 border-4 bg-background-950" />
             <div className="flex flex-col sm:flex-row sm:justify-between w-full sm:ml-44 justify-center items-center sm:py-0 py-4">
                 <div className="flex flex-col gap-1">
                     <div className="text-3xl flex flex-col sm:flex-row items-center gap-2 text-background-200 justify-center">

@@ -46,7 +46,7 @@ const UserCard = ({ user, filter }: { user: FriendsEntry, filter: string }) => {
         </div>
         <div className="px-4 flex flex-row gap-4">
             <div className="relative">
-                <Image src={`https://a.osu.lisek.cc/${user.id}`} width={64} height={64} className="rounded-full -translate-y-6" alt="User avatar"/>
+                <Image src={`https://a.lisek.cc/${user.id}`} width={64} height={64} className="rounded-full -translate-y-6" alt="User avatar"/>
             </div>
             <div className="text-xl flex flex-col gap-1.5">
                 <div>
