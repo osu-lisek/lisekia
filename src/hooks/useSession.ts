@@ -106,7 +106,7 @@ export const destroySession = () => {
 }
 
 const getCurrentUser = async (token_type: string, token: string) => {
-    let response = await fetch(`https://${process.env.NODE_ENV == "development" ? "dev." : ""}lisek.world/api/v1/oauth2/user`, {
+    let response = await fetch(`https://${process.env.NODE_ENV == "development" ? "dev." : ""}osu.lisek.cc/api/v1/oauth2/user`, {
         headers: {
             "Authorization": `${token_type} ${token}`
         }
@@ -118,7 +118,7 @@ const getCurrentUser = async (token_type: string, token: string) => {
 }
 
 const fetchUser = async (id: number): Promise<UserResponse["data"] | undefined> => {
-    let response = await fetch(`https://${process.env.NODE_ENV == "development" ? "dev." : ""}lisek.world/api/v2/users/${id}`).then(res => res.json()) as UserResponse;
+    let response = await fetch(`https://${process.env.NODE_ENV == "development" ? "dev." : ""}osu.lisek.cc/api/v2/users/${id}`).then(res => res.json()) as UserResponse;
 
     if (!response.ok) return;
 
@@ -126,7 +126,7 @@ const fetchUser = async (id: number): Promise<UserResponse["data"] | undefined> 
 }
 
 const fetchUserWithToken = async (token_type: string, token: string): Promise<UserResponse["data"] | undefined> => {
-    let response = await fetch(`https://${process.env.NODE_ENV == "development" ? "dev." : ""}lisek.world/api/v2/users/@me`, {
+    let response = await fetch(`https://${process.env.NODE_ENV == "development" ? "dev." : ""}osu.lisek.cc/api/v2/users/@me`, {
         headers: {
             "Content-Type": "application/json",
             "Authorization": `${token_type} ${token}`

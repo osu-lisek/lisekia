@@ -77,7 +77,7 @@ export default async function Page({ params }: IProps) {
 
     if (offset < 0) return redirect(`/rankings/${params.mode}/1`);
 
-    const { ok, message, data } = await fetch(`https://lisek.world/api/v2/rankings/leaderboard?offset=${offset}&limit=${limit}&mode=${convertModeToInt(params.mode ?? "standard")}`, { cache: "no-cache" }).then(res => res.json()) as LeaderboardResponse;
+    const { ok, message, data } = await fetch(`https://osu.lisek.cc/api/v2/rankings/leaderboard?offset=${offset}&limit=${limit}&mode=${convertModeToInt(params.mode ?? "standard")}`, { cache: "no-cache" }).then(res => res.json()) as LeaderboardResponse;
 
     //TODO: Make error card
     if (!ok) return <div>Error: {message}</div>

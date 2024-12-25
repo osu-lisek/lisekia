@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
 
     let code = new URL(request.url).searchParams.get("code");
 
-    let response = await fetch(`https://lisek.world/api/v1/oauth2/token`, {
+    let response = await fetch(`https://osu.lisek.cc/api/v1/oauth2/token`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

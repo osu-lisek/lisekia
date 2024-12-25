@@ -15,7 +15,7 @@ components:
       scheme: bearer
       bearerFormat: JWT
 servers:
-  - url: https://lisek.world
+  - url: https://osu.lisek.cc
 paths:
   /api/v2/users/{id}:
     get:

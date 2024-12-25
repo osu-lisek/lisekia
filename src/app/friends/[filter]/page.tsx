@@ -42,11 +42,11 @@ const FilterItem = ({ color, count, name, active }: { count: number, color: keyo
 const UserCard = ({ user, filter }: { user: FriendsEntry, filter: string }) => {
     return (<div className="rounded-xl w-full sm:w-[280px] bg-background-950/50 duration-300">
         <div className="h-12 w-full">
-            <Image src={user.banner ? `${user.banner}` : "https://assets.lisek.world/banners/0"} width={1000} height={200} alt="User background" className="w-full h-full object-cover rounded-t-xl brightness-50"/>
+            <Image src={user.banner ? `${user.banner}` : "https://assets.osu.lisek.cc/banners/0"} width={1000} height={200} alt="User background" className="w-full h-full object-cover rounded-t-xl brightness-50"/>
         </div>
         <div className="px-4 flex flex-row gap-4">
             <div className="relative">
-                <Image src={`https://a.lisek.world/${user.id}`} width={64} height={64} className="rounded-full -translate-y-6" alt="User avatar"/>
+                <Image src={`https://a.osu.lisek.cc/${user.id}`} width={64} height={64} className="rounded-full -translate-y-6" alt="User avatar"/>
             </div>
             <div className="text-xl flex flex-col gap-1.5">
                 <div>
@@ -87,7 +87,7 @@ export default async function Page({ params }: { params: { filter: string } }) {
     let friends: Array<FriendsEntry> = [];
 
     
-    const { ok, data: friendEntries } = await fetch(`https://lisek.world/api/v2/users/${user.id}/friends`, { headers: { ...headers } }).then(res => res.json()) as FriendsResponse;
+    const { ok, data: friendEntries } = await fetch(`https://osu.lisek.cc/api/v2/users/${user.id}/friends`, { headers: { ...headers } }).then(res => res.json()) as FriendsResponse;
     friends = friendEntries;
 
     //TODO: Internal server error card
@@ -96,7 +96,7 @@ export default async function Page({ params }: { params: { filter: string } }) {
     let followersCount = -1;
 
     if (user.is_donor) {
-        const { ok, data: followers } = await fetch(`https://lisek.world/api/v2/users/${user.id}/followers`, { headers: { ...headers } }).then(res => res.json()) as FriendsResponse;
+        const { ok, data: followers } = await fetch(`https://osu.lisek.cc/api/v2/users/${user.id}/followers`, { headers: { ...headers } }).then(res => res.json()) as FriendsResponse;
 
         if (!ok) return <>Whoops, 500...</>;
 

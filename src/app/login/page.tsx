@@ -16,7 +16,7 @@ export default async function Page() {
     async function authorize(state: LoginServerState, payload: FormData): Promise<LoginServerState> {
         "use server";
 
-        let response = await fetch(`https://lisek.world/oauth/token`, {
+        let response = await fetch(`https://osu.lisek.cc/oauth/token`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

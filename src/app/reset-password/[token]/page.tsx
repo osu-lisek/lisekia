@@ -14,7 +14,7 @@ export default async function Page({ params: { token } }: Props) {
 
     if (user) return redirect("/");
 
-    let { ok } = await fetch(`https://lisek.world/api/v1/auth/forgot-password/${token}`).then(res => res.json());
+    let { ok } = await fetch(`https://osu.lisek.cc/api/v1/auth/forgot-password/${token}`).then(res => res.json());
 
     if (!ok) return redirect("/");
 
@@ -35,7 +35,7 @@ export default async function Page({ params: { token } }: Props) {
             message: "Passwords do not match"
         }
 
-        let { ok, message } = await fetch(`https://lisek.world/api/v1/auth/forgot-password/${token}`, {
+        let { ok, message } = await fetch(`https://osu.lisek.cc/api/v1/auth/forgot-password/${token}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -35,7 +35,7 @@ export default async function Page() {
                     <FontAwesomeIcon icon={faGamepad} width={96} height={96} />
                 </div>
                 <div className="p-2 text-wrap text-center">
-                    Create game shortcut and put <br/><code className="text-primary-600">-devserver lisek.world</code> at the end.
+                    Create game shortcut and put <br/><code className="text-primary-600">-devserver osu.lisek.cc</code> at the end.
                 </div>
             </div>
             <div className="bg-background-800/60 min-h-56 flex-1 rounded-md flex flex-col justify-center items-center">

@@ -48,7 +48,7 @@ export type ScoreResponse = {
 export type OsuMode = "standard" | "taiko" | "fruits" | "mania" | "relax";
 
 export const fetchScores = async (user: string | number, type: "best" | "recent", limit: number = 5, offset: number = 0, mode: OsuMode = "standard", header?: object): Promise<ScoreResponse['data']> => {
-    let response = await fetch(`https://lisek.world/api/v2/users/${user}/${type}?mode=${convertModeToInt(mode.toString())}&limit=${limit}&offset=${offset}`, { cache: "no-cache", headers: { ...header } }).then(res => res.json()) as ScoreResponse;
+    let response = await fetch(`https://osu.lisek.cc/api/v2/users/${user}/${type}?mode=${convertModeToInt(mode.toString())}&limit=${limit}&offset=${offset}`, { cache: "no-cache", headers: { ...header } }).then(res => res.json()) as ScoreResponse;
 
     if (!response.ok) {
         console.error(`Failed to fetch ${type} scores on user ${user}, message: ${response.message}`)
@@ -59,7 +59,7 @@ export const fetchScores = async (user: string | number, type: "best" | "recent"
 }
 
 export const fetchScoresSafe = async (user: string | number, type: "best" | "recent", limit: number = 5, offset: number = 0, mode: OsuMode = "standard", header?: object): Promise<ScoreResponse> => {
-    let response = await fetch(`https://lisek.world/api/v2/users/${user}/${type}?mode=${convertModeToInt(mode.toString())}&limit=${limit}&offset=${offset}`, { cache: "no-cache", headers: { ...header } }).then(res => res.json()) as ScoreResponse;
+    let response = await fetch(`https://osu.lisek.cc/api/v2/users/${user}/${type}?mode=${convertModeToInt(mode.toString())}&limit=${limit}&offset=${offset}`, { cache: "no-cache", headers: { ...header } }).then(res => res.json()) as ScoreResponse;
 
     return response;
 }

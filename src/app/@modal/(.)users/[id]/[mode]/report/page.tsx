@@ -21,14 +21,14 @@ export default async function Page({ params }: IModalProps) {
 
     let ok: boolean, data: UserResponse["data"], message: string;
     if (user) {
-        let response = await fetch(`https://lisek.world/api/v2/users/${params.id}?mode=${convertModeToInt(params.mode)}`, {
+        let response = await fetch(`https://osu.lisek.cc/api/v2/users/${params.id}?mode=${convertModeToInt(params.mode)}`, {
             headers: {
                 ...headers
             }
         }).then(res => res.json()) as UserResponse;
 
         if (!response.ok) {
-            let response = await fetch(`https://lisek.world/api/v2/users/${params.id}?mode=${convertModeToInt(params.mode)}`).then(res => res.json()) as UserResponse;
+            let response = await fetch(`https://osu.lisek.cc/api/v2/users/${params.id}?mode=${convertModeToInt(params.mode)}`).then(res => res.json()) as UserResponse;
 
 
             ok = response.ok;
@@ -40,7 +40,7 @@ export default async function Page({ params }: IModalProps) {
             message = response.message as string;
         }
     } else {
-        let response = await fetch(`https://lisek.world/api/v2/users/${params.id}?mode=${convertModeToInt(params.mode)}`).then(res => res.json()) as UserResponse;
+        let response = await fetch(`https://osu.lisek.cc/api/v2/users/${params.id}?mode=${convertModeToInt(params.mode)}`).then(res => res.json()) as UserResponse;
 
         ok = response.ok;
         data = response.data;
@@ -99,11 +99,11 @@ export default async function Page({ params }: IModalProps) {
                         title: "New report!",
                         author: {
                             name: authorized_user.username,
-                            icon_url: `https://a.lisek.world/${authorized_user.id}`,
+                            icon_url: `https://a.osu.lisek.cc/${authorized_user.id}`,
                             url: `https://next.lisek.cc/users/${authorized_user.id}`
                         },
                         thumbnail: {
-                            url: `https://a.lisek.world/${data.id}`
+                            url: `https://a.osu.lisek.cc/${data.id}`
                         },
                         color: 0xff0000,
                         timestamp: new Date().toISOString(),

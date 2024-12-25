@@ -16,7 +16,7 @@ export default async function FriendButton({ is_friend, is_mutual, user, filter 
 
         let user = payload.get("user");
 
-        let status = await fetch(`https://lisek.world/api/v2/users/${user}/friend`, { method: "POST", headers: {...headers} }).then(res => res.json());
+        let status = await fetch(`https://osu.lisek.cc/api/v2/users/${user}/friend`, { method: "POST", headers: {...headers} }).then(res => res.json());
 
 
         if (!status.ok) {

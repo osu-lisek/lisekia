@@ -85,7 +85,7 @@ export interface StatusRoot {
 
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    let { ok, data } = await fetch(`https://lisek.world/api/v2/users/${params.id}?mode=${convertModeToInt(params.mode)}`).then(res => res.json()) as UserResponse;
+    let { ok, data } = await fetch(`https://osu.lisek.cc/api/v2/users/${params.id}?mode=${convertModeToInt(params.mode)}`).then(res => res.json()) as UserResponse;
 
     if (!ok) return {};
     //If check above is passed, then we do not need to validate data
@@ -93,11 +93,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     let countryName = data.country == "XX" ? "Unknown" : new Intl.DisplayNames(["en"], { type: "region" }).of(data.country);
     return {
-        metadataBase: new URL(`https://lisek.world`),
+        metadataBase: new URL(`https://osu.lisek.cc`),
         title: `${data.username} | osu!lisek`,
         openGraph: {
             images: {
-                url: `https://a.lisek.world/${data.id}`,
+                url: `https://a.osu.lisek.cc/${data.id}`,
                 width: 32,
                 height: 32
             },
@@ -106,7 +106,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         },
         twitter: {
             images: {
-                url: `https://a.lisek.world/${data.id}`,
+                url: `https://a.osu.lisek.cc/${data.id}`,
                 width: 32,
                 height: 32
             },
@@ -122,14 +122,14 @@ export default async function profile({ params }: Props) {
 
     let ok, data, message;
     if (user) {
-        let response = await fetch(`https://lisek.world/api/v2/users/${params.id}?mode=${convertModeToInt(params.mode)}`, {
+        let response = await fetch(`https://osu.lisek.cc/api/v2/users/${params.id}?mode=${convertModeToInt(params.mode)}`, {
             headers: {
                 ...headers
             }
         }).then(res => res.json()) as UserResponse;
 
         if (!response.ok) {
-            let response = await fetch(`https://lisek.world/api/v2/users/${params.id}?mode=${convertModeToInt(params.mode)}`).then(res => res.json()) as UserResponse;
+            let response = await fetch(`https://osu.lisek.cc/api/v2/users/${params.id}?mode=${convertModeToInt(params.mode)}`).then(res => res.json()) as UserResponse;
 
 
             ok = response.ok;
@@ -141,7 +141,7 @@ export default async function profile({ params }: Props) {
             message = response.message;
         }
     } else {
-        let response = await fetch(`https://lisek.world/api/v2/users/${params.id}?mode=${convertModeToInt(params.mode)}`).then(res => res.json()) as UserResponse;
+        let response = await fetch(`https://osu.lisek.cc/api/v2/users/${params.id}?mode=${convertModeToInt(params.mode)}`).then(res => res.json()) as UserResponse;
 
         ok = response.ok;
         data = response.data;
@@ -169,21 +169,21 @@ export default async function profile({ params }: Props) {
     
     if (params.id != data.id.toString()) return redirect(`/users/${data.id}`);
 
-    const graph = await fetch(`https://lisek.world/api/v2/users/${data.id}/graph?mode=${convertModeToInt(mode)}`, { headers: user ? headers : {} }).then(res => res.json()) as GraphResponse;
+    const graph = await fetch(`https://osu.lisek.cc/api/v2/users/${data.id}/graph?mode=${convertModeToInt(mode)}`, { headers: user ? headers : {} }).then(res => res.json()) as GraphResponse;
 
     let bbcodeParser = new BBCodeParser();
 
     if (data.permissions & 8 && !(data.flags & 32)) data.badges.push({ id: 0, color: "#7c0a02", name: "Restricted", icon: "" });
     if (data.permissions & 8 && data.flags & 32) data.badges.push({ id: 0, color: "#edea3e", name: "Pending verification", icon: "" });
 
-    let banchoStatus = await fetch(`https://lisek.world/api/v2/bancho/user/${data?.id}`).then(res => res.json()) as StatusRoot;
+    let banchoStatus = await fetch(`https://osu.lisek.cc/api/v2/bancho/user/${data?.id}`).then(res => res.json()) as StatusRoot;
 
     return (<div className="min-h-screen w-full sm:w-[80%] my-4 animate-fade-up animate-duration-300 animate-ease-out">
         <div className="min-h-[10rem] sm:h-[18rem] bg-primary-800 w-full sm:rounded-t-xl flex flex-col justify-center items-center">
             {data.background_url && <Image src={`${data.background_url}`} placeholder="blur" blurDataURL={`/_next/image?url=${encodeURIComponent(data.background_url)}&w=32&q=1`} alt="background" width={1200} height={600} className="h-full object-cover w-full sm:rounded-t-xl brightness-75" />}
         </div>
         <div className="bg-background-800/25 sm:px-4 flex flex-col sm:flex-row py-5 sm:gap-3 select-none shadow-md justify-center items-center sm:items-start sm:justify-start">
-            <Image src={`https://a.lisek.world/${data.id}`} alt="Profile picture" width={162} height={162} placeholder="blur" blurDataURL={`/_next/image?url=https://a.lisek.world/${data.id}&w=32&q=1`} className="sm:-translate-y-20 sm:absolute rounded-xl border-background-950 border-4 bg-background-950" />
+            <Image src={`https://a.osu.lisek.cc/${data.id}`} alt="Profile picture" width={162} height={162} placeholder="blur" blurDataURL={`/_next/image?url=https://a.osu.lisek.cc/${data.id}&w=32&q=1`} className="sm:-translate-y-20 sm:absolute rounded-xl border-background-950 border-4 bg-background-950" />
             <div className="flex flex-col sm:flex-row sm:justify-between w-full sm:ml-44 justify-center items-center sm:py-0 py-4">
                 <div className="flex flex-col gap-1">
                     <div className="text-3xl flex flex-col sm:flex-row items-center gap-2 text-background-200 justify-center">

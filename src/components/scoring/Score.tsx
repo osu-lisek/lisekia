@@ -28,7 +28,7 @@ export function Score({ score }: ScoreProps) {
         <div className="flex w-full items-center">
             <ScoreRank rank={score.grade} size={86} />
             <div>
-                <Link className="text-background-200 text-sm sm:text-lg" href={`https://lisek.world/b/${score.beatmap.id}`} about="_blank">
+                <Link className="text-background-200 text-sm sm:text-lg" href={`https://osu.lisek.cc/b/${score.beatmap.id}`} about="_blank">
                     {score.beatmap.artist} - {score.beatmap.title}
                 </Link>
                 <div className="text-background-200 text-xs sm:text-base flex sm:flex-row gap-2">

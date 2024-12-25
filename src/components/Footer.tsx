@@ -13,10 +13,10 @@ export async function Footer() {
                             <Globe2Icon className="hidden sm:block" /> General
                         </div>
                         <div className="flex flex-col gap-0.5 text-xl text-primary-600 text-center sm:text-left">
-                            <Link href={`https://lisek.world/docs/how-to-connect`} className="hover:text-primary-500 duration-300">
+                            <Link href={`https://osu.lisek.cc/docs/how-to-connect`} className="hover:text-primary-500 duration-300">
                                 How to connect?
                             </Link>
-                            <Link href={`https://lisek.world/docs/rules`} className="hover:text-primary-500 duration-300 ">
+                            <Link href={`https://osu.lisek.cc/docs/rules`} className="hover:text-primary-500 duration-300 ">
                                 Rules
                             </Link>
                         </div>
@@ -38,7 +38,7 @@ export async function Footer() {
                             <PencilIcon className="hidden sm:block" /> Dev
                         </div>
                         <div className="flex flex-col gap-0.5 text-xl text-primary-600">
-                            <Link href={`https://gitlab.lisek.world`} className="hover:text-primary-500 duration-300">
+                            <Link href={`https://gitlab.osu.lisek.cc`} className="hover:text-primary-500 duration-300">
                                 Gitlab
                             </Link>
                         </div>

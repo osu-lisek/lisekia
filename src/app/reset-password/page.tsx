@@ -11,7 +11,7 @@ export default async function Page() {
   async function resetPassword(state: ResetPasswordServerState, payload: FormData): Promise<ResetPasswordServerState> {
     'use server'
 
-    let response = await fetch(`https://lisek.world/api/v1/auth/forgot-password`, {
+    let response = await fetch(`https://osu.lisek.cc/api/v1/auth/forgot-password`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

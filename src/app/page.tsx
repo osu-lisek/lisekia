@@ -63,7 +63,7 @@ export type NewsEntry = {
 
 export default async function Home() {
 
-  const { data: { users, online } } = await fetch(`https://c.lisek.world/api/v2/bancho/stats`, { cache: "no-cache" }).then(res => res.json());
+  const { data: { users, online } } = await fetch(`https://c.osu.lisek.cc/api/v2/bancho/stats`, { cache: "no-cache" }).then(res => res.json());
 
   const { user, headers } = await useServerSession();
 
@@ -141,7 +141,7 @@ export default async function Home() {
                     </p>
                   </Link>
                   <div className='flex flex-row justify-between'>
-                    <Link href={`/users/${c.createdBy}`} className='text-lg flex flex-row gap-1 mt-2'><Image src={`https://a.lisek.world/${c.createdBy}`} width={32} height={32} alt='hero' className='rounded-full' /> {c.username}</Link>
+                    <Link href={`/users/${c.createdBy}`} className='text-lg flex flex-row gap-1 mt-2'><Image src={`https://a.osu.lisek.cc/${c.createdBy}`} width={32} height={32} alt='hero' className='rounded-full' /> {c.username}</Link>
                     <div className='flex flex-row gap-1 text-xs'>
                       {user.permissions & 16 ? <Link href={`/posts/${c.id}/edit`} className='text-lg flex flex-row gap-1 mt-2 items-center px-2 py-0.5border-[1px] rounded-xl'>Edit da post <EditIcon /></Link> : <></>}
                       <Link href={`/posts/${c.id}`} className='text-lg flex flex-row gap-1 mt-2 items-center px-2 py-0.5border-[1px] rounded-xl'>Read more <ArrowRight /></Link>
@@ -185,7 +185,7 @@ export default async function Home() {
               <div className='flex flex-col gap-2'>
                 {topDonors.filter(c => c.months).map((c, i) => <div key={i} className='flex flex-row gap-2'>
                   <div>
-                    <Image src={`https://a.lisek.world/${c.id}`} width={48} height={48} alt='User avatar' className='rounded-md' />
+                    <Image src={`https://a.osu.lisek.cc/${c.id}`} width={48} height={48} alt='User avatar' className='rounded-md' />
                   </div>
                   <div className='flex flex-col'>
                     <Link href={`/users/${c.id}`} className='text-base'>
@@ -209,7 +209,7 @@ export default async function Home() {
                     <Image src={`https://assets.ppy.sh/beatmaps/${c.parentId}/covers/list@2x.jpg`} width={64} height={64} alt='User avatar' className='rounded-md object-cover w-[64px] h-[64px]' />
                   </div>
                   <div className='flex flex-col'>
-                    <Link href={`https://lisek.world/beatmapsets/${c.parentId}/${c.beatmapId}`} className='text-sm'>
+                    <Link href={`https://osu.lisek.cc/beatmapsets/${c.parentId}/${c.beatmapId}`} className='text-sm'>
                       {c.title}
                     </Link>
                     <div className='text-sm text-background-100 flex flex-col'>

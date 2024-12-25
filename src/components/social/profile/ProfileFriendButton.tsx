@@ -28,19 +28,19 @@ export default async function ProfileFriendButton({ disabled, is_friend, is_mutu
 
         let user = payload.get("user")?.toString();
 
-        let status = await fetch(`https://lisek.world/api/v2/users/${user}/friend`, { method: "POST", headers: {...headers} }).then(res => res.json());
+        let status = await fetch(`https://osu.lisek.cc/api/v2/users/${user}/friend`, { method: "POST", headers: {...headers} }).then(res => res.json());
 
 
         if (!status.ok) {
             return redirect("/");
         }
 
-        let friends = await fetch(`https://lisek.world/api/v2/users/${auth?.id}/friends`, { method: "GET", headers: {...headers} }).then(res => res.json());
+        let friends = await fetch(`https://osu.lisek.cc/api/v2/users/${auth?.id}/friends`, { method: "GET", headers: {...headers} }).then(res => res.json());
 
 
         let friend_entry = friends.data.find((friend: { id: number }) => friend.id == parseInt(user??"0"));
 
-        let friend_profile = await fetch(`https://lisek.world/api/v2/users/${user}`, { method: "GET", headers: {...headers} }).then(res => res.json());
+        let friend_profile = await fetch(`https://osu.lisek.cc/api/v2/users/${user}`, { method: "GET", headers: {...headers} }).then(res => res.json());
 
         return { status: getFriendStatus(friend_entry ? true : false, friend_entry?.is_mutual), new_count: friend_profile?.data?.followers };
     }

@@ -127,7 +127,7 @@ export default async function Page() {
             username: body.username,
             password: body.password
         }));
-        let response = await fetch(`https://${process.env.NODE_ENV == "development" ? "dev." : ""}lisek.world/oauth/token`, {
+        let response = await fetch(`https://${process.env.NODE_ENV == "development" ? "dev." : ""}osu.lisek.cc/oauth/token`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
