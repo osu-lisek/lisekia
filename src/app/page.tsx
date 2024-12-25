@@ -63,7 +63,7 @@ export type NewsEntry = {
 
 export default async function Home() {
 
-  const { data: { users, online } } = await fetch(`https://c.osu.lisek.cc/api/v2/bancho/stats`, { cache: "no-cache" }).then(res => res.json());
+  const { data: { users, online } } = await fetch(`https://c.lisek.cc/api/v2/bancho/stats`, { cache: "no-cache" }).then(res => res.json());
 
   const { user, headers } = await useServerSession();
 
