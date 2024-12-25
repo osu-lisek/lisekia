@@ -180,7 +180,7 @@ export default async function profile({ params }: Props) {
 
     return (<div className="min-h-screen w-full sm:w-[80%] my-4 animate-fade-up animate-duration-300 animate-ease-out">
         <div className="min-h-[10rem] sm:h-[18rem] bg-primary-800 w-full sm:rounded-t-xl flex flex-col justify-center items-center">
-            {data.background_url && <Image src={`${data.background_url}`} placeholder="blur" blurDataURL={`/_next/image?url=${encodeURIComponent(data.background_url)}&w=32&q=1`} width={1200} height={600} className="h-full object-cover w-full sm:rounded-t-xl brightness-75" />}
+            {/* {data.background_url && <Image src={`${data.background_url}`} placeholder="blur" blurDataURL={`/_next/image?url=${encodeURIComponent(data.background_url)}&w=32&q=1`} width={1200} height={600} className="h-full object-cover w-full sm:rounded-t-xl brightness-75" />} */}
         </div>
         <div className="bg-background-800/25 sm:px-4 flex flex-col sm:flex-row py-5 sm:gap-3 select-none shadow-md justify-center items-center sm:items-start sm:justify-start">
             <Image src={`https://a.osu.lisek.cc/${data.id}`} alt="Profile picture" width={162} height={162} placeholder="blur" blurDataURL={`/_next/image?url=https://a.osu.lisek.cc/${data.id}&w=32&q=1`} className="sm:-translate-y-20 sm:absolute rounded-xl border-background-950 border-4 bg-background-950" />
